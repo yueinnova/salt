@@ -1,0 +1,2 @@
+master: <ip address of master>
+id: {{ minion_id }}
