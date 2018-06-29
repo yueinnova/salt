@@ -7,7 +7,7 @@ minion_key:
     - mode: 644
   cmd.run:
     - name: rpm --import /tmp/SALTSTACK-GPG-KEY.pub
-minion_yum:
+minion_alirepo:
   file.recurse:
     - name: /etc/yum.repos.d
     - source: salt://minions/yum.repos.d
@@ -16,6 +16,7 @@ minion_yum:
     - file_mode: 644
     - dir_mode: 755
     - include_empty: True
+minion_yum:
   file.managed:
     - name: /etc/yum.repos.d/saltstack.repo
     - source: salt://minions/conf/saltstack.repo
