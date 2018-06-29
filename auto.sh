@@ -1,3 +1,4 @@
+#!/bin/bash
 # Install Basic Tools
 # yum install -y wget
 # yum install -y tree
