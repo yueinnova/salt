@@ -12,7 +12,7 @@ mkdir bak &&
 mv CentOS-*.repo bak &&
 
 # Fetch aliyun sources
-wget http://mirrors.aliyun.com/repo/Centos-7.repo &&
+wget -O CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo &&
 sed -i 's/$releasever/7/g' CentOS-Base.repo &&
 wget http://mirrors.aliyun.com/repo/epel-7.repo &&
 
