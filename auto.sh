@@ -54,7 +54,7 @@ iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT &&
 
 # start salt-master
 systemctl enable salt-master &&
-systemctl start salt-master &&
+systemctl start salt-master 
 
 # restart and you're all set!
 # Let's install salt-minion by salt-ssh: 
