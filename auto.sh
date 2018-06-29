@@ -52,6 +52,9 @@ iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT &&
 
 # bind minion's ip/hostname in /etc/hosts
 
+# copy yum.repos.d for minions.install
+cp /etc/yum.repos.d /srv/salt/minion/conf/
+
 # start salt-master
 systemctl enable salt-master &&
 systemctl start salt-master 
