@@ -61,6 +61,7 @@ systemctl start salt-master &&
 # salt-ssh '*' -i test.ping to test/init connectivity
 # salt-ssh '*' state.sls minions.install to install the minion 
 
+# halt --r
 
 
 
