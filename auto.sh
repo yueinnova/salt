@@ -45,11 +45,7 @@ sed -i 's/=enforce/=disabled/g' /etc/sysconfig/selinux &&
 iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4505 -j ACCEPT &&
 iptables -I INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT &&
 
-# config configureation file
-# minion: /srv/salt/minions/conf/minion: add master ip
-# master: /etc/salt/master: add master's interface id/set file roots
 # roster: /etc/salt/roster: add minion's id/ip/username/passwd/sudo
-
 # bind minion's ip/hostname in /etc/hosts
 
 # copy yum.repos.d for minions.install
@@ -57,7 +53,36 @@ cp -r /etc/yum.repos.d/ /srv/salt/minions/
 
 # start salt-master
 systemctl enable salt-master &&
-systemctl start salt-master 
+systemctl start salt-master &&
+
+# config configureation file
+# minion: /srv/salt/minions/conf/minion: add master ip
+# master: /etc/salt/master: add master's interface ip
+
+# Take the 1st parameter as the master's ip addr
+# set the /etc/salt/master
+sed -i "15c interface: $1" /etc/salt/master &&
+
+# set the /srv/salt/minions/conf/minion
+sed -i "1c master: $1" /srv/salt/minions/conf/minion && 
+
+# roster: /etc/salt/roster: add minion's id/ip/username/passwd/sudo
+USERNAME="salt"
+PASSWORD="salt"
+basepath=$(cd `dirname $0`; pwd)
+
+for i in "cat $basepath/host_ip.txt | awk '{print $1}'"
+do
+        echo "$i:" >> /etc/salt/roster 
+        echo "  host: $i" >> /etc/salt/roster
+        echo "  user: $USERNAME" >>/etc/salt/roster
+        echo "  passwd: $PASSWORD" >>/etc/salt/roster
+        echo "  sudo: True" >>/etc/salt/roster
+#        echo "  timeout: 10" >>/etc/salt/roster
+done
+
+# bind minion's ip/hostname in /etc/hosts
+awk '{print $0}' $basepath/host_ip.txt >> /etc/hosts
 
 # restart and you're all set!
 # Let's install salt-minion by salt-ssh: 
