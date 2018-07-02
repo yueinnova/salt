@@ -2,9 +2,8 @@
 # Install Basic Tools
 # yum install -y wget
 # yum install -y tree
-# yum install -y net-tools
 
-# config Aliyun sources
+# config aliyun sources
 
 # Backup current sources
 cd /etc/yum.repos.d/ &&
@@ -85,12 +84,8 @@ done
 awk '{print $0}' $basepath/host_ip.txt >> /etc/hosts
 
 # restart and you're all set!
+# halt --r
+
 # Let's install salt-minion by salt-ssh: 
 # salt-ssh '*' -i test.ping to test/init connectivity
 # salt-ssh '*' state.sls minions.install to install the minion 
-
-# halt --r
-
-
-
-
