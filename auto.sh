@@ -68,9 +68,9 @@ sed -i "1c master: $1" /srv/salt/minions/conf/minion &&
 # roster: /etc/salt/roster: add minion's id/ip/username/passwd/sudo
 USERNAME="salt"
 PASSWORD="salt"
-basepath=$(cd `dirname $0`; pwd)
+#basepath=$(cd `dirname $0`; pwd)
 
-for i in "cat $basepath/host_ip.txt | awk '{print $1}'"
+for i in "cat /srv/salt/host_ip.txt | awk '{print $1}'"
 do
         echo "$i:" >> /etc/salt/roster 
         echo "  host: $i" >> /etc/salt/roster
@@ -81,7 +81,7 @@ do
 done
 
 # bind minion's ip/hostname in /etc/hosts
-awk '{print $0}' $basepath/host_ip.txt >> /etc/hosts
+awk '{print $0}' /srv/salt/host_ip.txt >> /etc/hosts
 
 # restart and you're all set!
 # halt --r
