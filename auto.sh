@@ -70,7 +70,7 @@ USERNAME="salt"
 PASSWORD="salt"
 #basepath=$(cd `dirname $0`; pwd)
 
-for i in "cat /srv/salt/host_ip.txt | awk '{print $1}'"
+for i in "awk '{print $1}' /srv/salt/host_ip.txt"
 do
         echo "$i:" >> /etc/salt/roster 
         echo "  host: $i" >> /etc/salt/roster
