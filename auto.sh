@@ -66,19 +66,17 @@ sed -i "15c interface: $1" /etc/salt/master &&
 sed -i "1c master: $1" /srv/salt/minions/conf/minion && 
 
 # roster: /etc/salt/roster: add minion's id/ip/username/passwd/sudo
-USERNAME="salt"
-PASSWORD="salt"
-#basepath=$(cd `dirname $0`; pwd)
+USERNAME='salt'
+PASSWORD='salt'
+ROSTERPATH='/etc/salt/roster'
 
-for i in "awk '{print $1}' /srv/salt/host_ip.txt"
-do
-        echo "$i:" >> /etc/salt/roster 
-        echo "  host: $i" >> /etc/salt/roster
-        echo "  user: $USERNAME" >>/etc/salt/roster
-        echo "  passwd: $PASSWORD" >>/etc/salt/roster
-        echo "  sudo: True" >>/etc/salt/roster
-#        echo "  timeout: 10" >>/etc/salt/roster
-done
+awk '{{OFS = ""}
+      {print $1, ":" >> rosterpath;
+       print "  host: ", $1 >> rosterpath;
+       print "  user: ", username >> rosterpath;
+       print "  passwd: ", passwd >> rosterpath;
+       print "  sudo: True" >> rosterpath}
+     }' username="$USERNAME" passwd="$PASSWORD" rosterpath="$ROSTERPATH" /srv/salt/host_ip.txt 
 
 # bind minion's ip/hostname in /etc/hosts
 awk '{print $0}' /srv/salt/host_ip.txt >> /etc/hosts
