@@ -1,7 +1,7 @@
 # salt-ssh远程部署使用说明
 ### 1. 确保被管机ip-hostname列表文件`host_ip.txt`与此脚本在同一目录下
-### 2. 使用命令`sh auto.sh <master(本机) IP地址>` 运行此脚本
-### 3. 成功安装后使用命令`halt --r` 重启master
+### 2. **使用命令`sh auto.sh <master(本机) IP地址>` 运行此脚本**
+### ~~3. 成功安装后使用命令`halt --r` 重启master~~
 ### 4. 重启后，使用命令`salt-ssh '*' -i test.ping`测试连通性并接受证书
 ### 5. 若返回结果为True，使用命令`salt-ssh '*' state.sls minions.install`远程部署salt-minion
 ### 6. 成功后使用命令`salt-key -L` 查看待通过密钥
